@@ -111,16 +111,16 @@ class Dashboard extends StatelessWidget {
                     children: [
                       for (int i = 0; i < 10; i++)
                         SizedBox(
-                          width: 240,
+                          width: 260,
                           height: 50,
                           child: Row(
                             children: [
                               Container(
-                                width: 90,
+                                width: 100,
                                 height: 90,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Colors.black,
+                                  color: const Color(0xFF36454f),
                                 ),
                                 child: const Center(
                                     child:
@@ -153,26 +153,12 @@ class Dashboard extends StatelessWidget {
                                       style: TextTheme.bodyText2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                    // const SizedBox(
-                                    //   height: 4,
-                                    // ),
-                                    // create a text button to view mechanic profile
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, "TechnicianScreen");
-                                        },
-                                        child: const Text(
-                                          'View More',
-                                          style: TextStyle(color: Colors.red),
-                                        )),
-                                    const FlutterRating(
-                                      rating: 3.5,
-                                      size: 20,
-                                      color: Colors.amber,
-                                    ),
-                                    const SizedBox(
-                                      height: 4,
+                                    const Center(
+                                      child: FlutterRating(
+                                        rating: 3.5,
+                                        size: 20,
+                                        color: Colors.amber,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -181,7 +167,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                       const SizedBox(
-                        width: 40,
+                        width: 50,
                       ),
                     ],
                   ),
@@ -193,16 +179,10 @@ class Dashboard extends StatelessWidget {
                 // Banner
                 Container(
                   width: double.infinity,
-                  height: 200,
+                  height: 300,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0xFF36454f).withOpacity(0.5),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Banner",
-                      style: TextStyle(color: Colors.white),
-                    ),
                   ),
                 ),
 
