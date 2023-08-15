@@ -1,42 +1,41 @@
 {
   "project_info": {
-    "project_number": "213167537346",
-    "project_id": "chopya-19dcc",
-    "storage_bucket": "chopya-19dcc.appspot.com"
+    "project_number": "121588269990",
+    "project_id": "motobreakdown-assistance",
+    "storage_bucket": "motobreakdown-assistance.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:213167537346:android:0df4bd910fb507e32d0f5b",
+        "mobilesdk_app_id": "1:121588269990:android:e98b0d03094394ff044567",
         "android_client_info": {
           "package_name": "com.example.chop_ya"
         }
       },
       "oauth_client": [
         {
-          "client_id": "213167537346-2ivq9h3t4gab1d7l924fhs8158dnta2f.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.chop_ya",
-            "certificate_hash": "487f17e7c3ebc8ef7c232ddf8bd6919272234815"
-          }
-        },
-        {
-          "client_id": "213167537346-spdpiuahe81hlj8t9idb12r0tc462hfs.apps.googleusercontent.com",
+          "client_id": "121588269990-cr1to4ook7l56c55ce13s2r8kpbmntgb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAe5L64y0lUJoODn7lN_L36A_f_b9RB7QI"
+          "current_key": "AIzaSyB9GnALgQ-BhRuu5W8vgwH09BqPgXsnCO4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "213167537346-spdpiuahe81hlj8t9idb12r0tc462hfs.apps.googleusercontent.com",
+              "client_id": "121588269990-cr1to4ook7l56c55ce13s2r8kpbmntgb.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "121588269990-jo17h19j56rtso9t116s2d38smgetdm3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.chopYa"
+              }
             }
           ]
         }

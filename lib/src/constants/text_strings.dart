@@ -73,3 +73,30 @@ const String tDashboardBannerTitle2 = "Technician";
 const String tDashboardBannerSubTitle = "Get your technician at your current location in just few clicks.";
 const String tDashboardBannerBtn = "Get Started";
 const String tDashboardTopTechs = "Top Technicians";
+
+
+
+// -- Profile Screen - Text
+const String tProfile = "Profile";
+const String tEditProfile = "Edit Profile";
+const String tLogoutDialogHeading = "Logout";
+const String tLogoutDialogSubHeading = "Are you sure you want to logout?";
+const String tLogoutDialogBtn = "Logout";
+const String tLogoutDialogCancelBtn = "Cancel";
+const String tProfileHeading = "Oga BomBoy";
+const String tProfileSubHeading = "techdetail@gmail.com";
+
+// -- menu
+const String tMenu6 = "Logout";
+const String tMenu1 = "Settings";
+const String tMenu2 = "Information";
+const String tMenu3 = "Help & Support";
+const String tMenu4 = "About Us";
+const String tMenu5 = "Privacy Policy";
+
+
+
+// -- Update Profile Screen - Text
+const String tDelete = "Delete";	
+const String tJoined = "Joined ";
+const String tJoinedAt = "30 October 2023";

@@ -1,6 +1,7 @@
 import 'package:chop_ya/src/constants/image_strings.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/constants/text_strings.dart';
+import 'package:chop_ya/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_native/flutter_rating_native.dart';
 
@@ -17,10 +18,6 @@ class Dashboard extends StatelessWidget {
             Icons.menu,
             color: Colors.black,
           ),
-          title: Text(
-            tAppName,
-            style: Theme.of(context).textTheme.headline6,
-          ),
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -32,7 +29,9 @@ class Dashboard extends StatelessWidget {
                 color: Colors.grey.shade100,
               ),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  // AuthenticationRepository.instance.logout();
+                },
                 icon: const Image(
                   image: AssetImage(tUserProfileImage),
                 ),
@@ -88,7 +87,8 @@ class Dashboard extends StatelessWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, "TechnicianScreen");
+                            // Navigator.pushNamed(context, "TechnicianScreen");
+                            AuthenticationRepository.instance.logout();
                           },
                           child: const Text(
                             'View More',

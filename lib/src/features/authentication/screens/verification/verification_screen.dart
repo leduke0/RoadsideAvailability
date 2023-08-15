@@ -1,18 +1,16 @@
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/constants/text_strings.dart';
-import 'package:chop_ya/src/features/authentication/controllers/otp_controller.dart';
+import 'package:chop_ya/src/features/core/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class OTPScreen extends StatelessWidget {
-  const OTPScreen({Key? key}) : super(key: key);
+class VerificationScreen extends StatelessWidget {
+  const VerificationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var otpController = Get.put(OTPController());
-    var otp;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -44,16 +42,11 @@ class OTPScreen extends StatelessWidget {
                   height: 20.0,
                 ),
                 OtpTextField(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   numberOfFields: 6,
                   fillColor: Colors.black.withOpacity(0.1),
                   filled: true,
                   enabledBorderColor: Colors.black.withOpacity(0.1),
                   focusedBorderColor: Colors.black,
-                  onSubmit: (code) {
-                    otp = code;
-                    OTPController.instance.verifyOTP(otp);
-                  },
                 ),
                 const SizedBox(
                   height: 30.0,
@@ -62,7 +55,7 @@ class OTPScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        OTPController.instance.verifyOTP(otp);
+                        Get.to(() => const Dashboard());
                       },
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 18.0)),

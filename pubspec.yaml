@@ -39,6 +39,16 @@ dependencies:
   get: ^4.6.5
   flutter_otp_text_field: ^1.1.1
   flutter_rating_native: ^0.0.2
+  firebase_core: ^2.15.0
+  firebase_auth: ^4.7.2
+
+
+
+  # --ICON PACKAGES--
+  line_awesome_flutter: ^2.0.0
+
+  
+ 
   
   # flutter_native_splash: ^2.2.19
 
@@ -91,6 +101,7 @@ flutter:
     - assets/logo/google_logo.png
     - assets/images/forgotpass.png
     - assets/images/dashboard/userProfile.png
+    - assets/images/profile/profile.png
 
 
 

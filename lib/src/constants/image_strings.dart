@@ -8,3 +8,6 @@ const String tForgetPasswordImage = "assets/images/forgotpass.png";
 
 // -- Dashboard Images
 const String tUserProfileImage = "assets/images/dashboard/userProfile.png";
+
+// -- Profile Images
+const String tProfileImage = "assets/images/profile/profile.png";
