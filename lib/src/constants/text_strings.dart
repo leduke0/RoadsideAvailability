@@ -6,6 +6,7 @@ const String tLogin = "Login";
 const String tEmail = "E-Mail";
 const String tSignup = "Signup";
 const String tPhoneNo = "Phone No";
+const String tLocation = "Location";
 const String tPassword = "Password";
 const String tFullName = "Full Name";
 const String tForgetPassword = "Forget Password?";
@@ -15,6 +16,10 @@ const String tSignInWithGoogle = "Sign-In with Google";
 // -- Splash Screen Text
 const String tAppName = "Locator";
 const String tAppTagLine = "Learn To Code. \nFree For Everyone";
+
+// -- Generic Text
+const String tDriver = "Driver";
+const String tTechnician = "Technician"; 
 
 
 // -- On Boarding Text
@@ -30,8 +35,8 @@ const String tOnBoardingCounter3 = "3/3";
 
 
 // -- Welcome Screen Text
-const String tWelcomeTitle = "Build Awesome Apps";
-const String tWelcomeSubTitle = "Let's put your creativity on the development highway.";
+const String tWelcomeTitle = "Let's help get you back on the road";
+const String tWelcomeSubTitle = "Are you a driver or technician?";
 
 
 // -- Login Screen Text
@@ -39,6 +44,12 @@ const String tLoginTitle = "Welcome Back,";
 const String tLoginSubTitle = "Make it work, make it right, make it fast.";
 const String tRememberMe = "Remember Me?";
 const String tDontHaveAnAccount = "Don't have an Account? ";
+const String tLoginTit = "Help stranded drivers";
+
+// technician login
+const String tTechLogin = "Technician Login";
+const String tTechLoginTitle = "Welcome Back,";
+const String tTechLoginSubTitle = "Make it work, make it right, make it fast.";
 
 
 // -- Sign Up Screen Text

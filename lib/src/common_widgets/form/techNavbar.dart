@@ -1,19 +1,19 @@
-import 'package:chop_ya/src/features/core/screens/driver/chats/chat_screen.dart';
-import 'package:chop_ya/src/features/core/screens/driver/history/history_screen.dart';
-import 'package:chop_ya/src/features/core/screens/driver/notifications/notification_screen.dart';
-import 'package:chop_ya/src/features/core/screens/driver/profile/profile_screen.dart';
+import 'package:chop_ya/src/features/core/screens/technician/chats/chat_screen.dart';
+import 'package:chop_ya/src/features/core/screens/technician/history/history_screen.dart';
+import 'package:chop_ya/src/features/core/screens/technician/notifications/notification_screen.dart';
+import 'package:chop_ya/src/features/core/screens/technician/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:chop_ya/src/features/core/screens/driver/dashboard/dashboard.dart';
+import 'package:chop_ya/src/features/core/screens/technician/dashboard/dashboard.dart';
 
-class NavBar extends StatefulWidget {
+class TechNavBar extends StatefulWidget {
 
 
 
   @override
-  _NavBarState createState() => _NavBarState();
+  _TechNavBarState createState() => _TechNavBarState();
 }
 
-class _NavBarState extends State<NavBar> {
+class _TechNavBarState extends State<TechNavBar> {
 
 // current index
 int _currentIdex = 0;

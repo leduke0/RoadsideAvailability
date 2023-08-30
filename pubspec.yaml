@@ -41,11 +41,10 @@ dependencies:
   flutter_rating_native: ^0.0.2
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
-
-
-
-  # --ICON PACKAGES--
   line_awesome_flutter: ^2.0.0
+  cloud_firestore: ^4.8.5
+  intl_phone_field: ^3.2.0
+  font_awesome_flutter: ^10.4.0
 
   
  
@@ -102,6 +101,7 @@ flutter:
     - assets/images/forgotpass.png
     - assets/images/dashboard/userProfile.png
     - assets/images/profile/profile.png
+    - assets/images/welcome/welcomePic.png
 
 
 

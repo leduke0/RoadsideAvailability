@@ -1,8 +1,13 @@
-import 'package:chop_ya/src/features/authentication/screens/login/login_screen.dart';
-import 'package:chop_ya/src/features/core/screens/dashboard/dashboard.dart';
+import 'package:chop_ya/src/common_widgets/form/techNavbar.dart';
+import 'package:chop_ya/src/common_widgets/navigationBar.dart';
+import 'package:chop_ya/src/features/authentication/screens/driver/forgot_password/forget_passsword_otp/otp_screen.dart';
+import 'package:chop_ya/src/features/authentication/screens/driver/login/login_screen.dart';
+import 'package:chop_ya/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
+// import 'package:chop_ya/src/features/core/screens/driver/dashboard/dashboard.dart';
 import 'package:chop_ya/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -11,31 +16,76 @@ class AuthenticationRepository extends GetxController {
   // firebase class firstly firebase authentication secondly firebase authenticated users already exist or not
   // Variables
   final _auth = FirebaseAuth.instance;
+  final _db = FirebaseFirestore.instance;
   // contains all the information about the user / logout / login / create account
   late final Rx<User?> firebaseUser;
   var verificationId = ''.obs;
+  
   // obs observable
 
   // when a user is loggedin or loggedout we redirect to the home page or particular page
   @override
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
-    firebaseUser.bindStream(_auth.authStateChanges());
+    firebaseUser.bindStream(_auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
   }
 
   // redeirect to the home page or particular page
   _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() => const LoginScreen())
-        : Get.offAll(() => const Dashboard());
+    // user == null
+    //     ? Get.offAll(() => const WelcomeScreen())
+    //     : Get.to(() => NavBar());
+    // check if the user sign in as a driver or technician and redirect to the particular page
+    if (user == null) {
+      Get.offAll(() => const WelcomeScreen());
+    } else {
+      Get.to(() => NavBar());
+    }
+
+    // check if current user is a driver or technician and redirect to the particular page
+    // if (FirebaseAuth.instance.currentUser == _db.collection('drivers') ) {
+    //   Get.to(() => NavBar());
+    // } else {
+    //   Get.to(() => TechNavBar());
+    // }
+    
+
   }
 
-  Future<void> phoneAuthentication(String phoneNo) async {
+  // Future<void> phoneAuthentication(String phoneNo) async {
+  //   await _auth.verifyPhoneNumber(
+  //     phoneNumber: phoneNo,
+  //     verificationCompleted: (credential) async {
+  //       await _auth.signInWithCredential(credential);
+  //     },
+  //     codeSent: (verificationId, resendToken) {
+  //       this.verificationId.value = verificationId;
+  //     },
+  //     codeAutoRetrievalTimeout: (verificationId) {
+  //       this.verificationId.value = verificationId;
+  //     },
+  //     verificationFailed: (e) {
+  //       if (e.code == 'invalid-phone-number') {
+  //         Get.snackbar('Error', 'The provided phone number is not valid.');
+  //       } else {
+  //         Get.snackbar('Error', 'Something went wrong. Try again.');
+  //       }
+  //     },
+  //   );
+  // }
+
+   Future<void> phoneAuthentication(String phoneNo) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNo,
       verificationCompleted: (credential) async {
         await _auth.signInWithCredential(credential);
+      },
+      codeSent: (verificationId, resendToken) {
+        this.verificationId.value = verificationId;
+      },
+      codeAutoRetrievalTimeout: (verificationId) {
+        this.verificationId.value = verificationId;
       },
       verificationFailed: (e) {
         if (e.code == 'invalid-phone-number') {
@@ -43,12 +93,6 @@ class AuthenticationRepository extends GetxController {
         } else {
           Get.snackbar('Error', 'Something went wrong. Try again.');
         }
-      },
-      codeSent: (verificationId, resendToken) {
-        this.verificationId.value = verificationId;
-      },
-      codeAutoRetrievalTimeout: (verificationId) {
-        this.verificationId.value = verificationId;
       },
     );
   }
@@ -68,8 +112,11 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
+      // after creating the user, create a new document for the user in the users collection
+      
       firebaseUser.value != null
-          ? Get.offAll(() => const Dashboard())
+          ? Get.to(() => const OTPScreen())
           : Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
