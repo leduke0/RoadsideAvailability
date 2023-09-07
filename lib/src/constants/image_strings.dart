@@ -14,3 +14,7 @@ const String tUserProfileImage = "assets/images/dashboard/userProfile.png";
 
 // -- Profile Images
 const String tProfileImage = "assets/images/profile/profile.png";
+
+// -- Map Images
+const String tPinImage = "assets/images/pin.png";	
+const String tCirclePin = "assets/images/circlePin.png";	

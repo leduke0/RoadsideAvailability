@@ -1,15 +1,24 @@
+import 'package:chop_ya/src/common_widgets/m_drawer.dart';
 import 'package:chop_ya/src/constants/image_strings.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/constants/text_strings.dart';
+import 'package:chop_ya/src/features/authentication/models/driver_model.dart';
 import 'package:chop_ya/src/features/authentication/screens/technician/signup/controllers/techProfile_controller.dart';
 import 'package:chop_ya/src/features/core/screens/driver/dashboard/technicians_screens.dart';
 import 'package:chop_ya/src/repository/authentication_repository/authentication_repository.dart';
+import 'package:chop_ya/src/repository/driver_repository/driver_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_native/flutter_rating_native.dart';
 import 'package:get/get.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  // const Dashboard({Key? key}) : super(key: key);
+
+  GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
+  final controller = Get.put(DriverRepository());
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +26,22 @@ class Dashboard extends StatelessWidget {
     final controller = Get.put(TechProfileController());
 
     return Scaffold(
+        key: skey,
+        drawer: MyDrawer(
+          // get currentuser name and email from firestore
+          name: _auth.currentUser!.displayName, // driver name
+          email: _auth.currentUser!.email, // driver email
+        ), // key for drawer
         backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
-          leading: const Icon(
-            Icons.menu,
-            color: Colors.black,
+          leading: GestureDetector(
+            onTap: () {
+              skey.currentState!.openDrawer(); // open drawer
+            },
+            child: const Icon(
+              Icons.menu,
+              color: Colors.black,
+            ),
           ),
           centerTitle: true,
           elevation: 0,
@@ -136,7 +156,7 @@ class Dashboard extends StatelessWidget {
                                   width: 260,
                                   child: Column(
                                     // shrinkWrap: true,
-                                    
+
                                     children: [
                                       SizedBox(
                                         // width: 260,
@@ -176,7 +196,8 @@ class Dashboard extends StatelessWidget {
                                                     style: const TextStyle(
                                                       fontSize: 16,
                                                     ),
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
                                                   const SizedBox(
                                                     height: 2,
@@ -186,7 +207,8 @@ class Dashboard extends StatelessWidget {
                                                     style: const TextStyle(
                                                       fontSize: 16,
                                                     ),
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
                                                   Row(
                                                     children: const [
@@ -195,8 +217,8 @@ class Dashboard extends StatelessWidget {
                                                         style: TextStyle(
                                                           fontSize: 16,
                                                         ),
-                                                        overflow:
-                                                            TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                       ),
                                                       Center(
                                                         child: FlutterRating(

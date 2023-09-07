@@ -9,18 +9,26 @@ import 'package:flutter_rating_native/flutter_rating_native.dart';
 import 'package:get/get.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  // const Dashboard({Key? key}) : super(key: key);
+
+  GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final TextTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+        key: skey,
         backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
-          leading: const Icon(
+          leading: GestureDetector(
+            onTap: () {
+              skey.currentState!.openDrawer();  // open drawer
+            },
+            child: const Icon(
             Icons.menu,
             color: Colors.black,
+          ),
           ),
           centerTitle: true,
           elevation: 0,

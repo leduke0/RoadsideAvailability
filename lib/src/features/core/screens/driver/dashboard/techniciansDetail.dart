@@ -1,3 +1,4 @@
+import 'package:chop_ya/src/common_widgets/request_form.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/features/authentication/models/technician_model.dart';
 import 'package:chop_ya/src/features/authentication/screens/technician/signup/controllers/techProfile_controller.dart';
@@ -7,7 +8,8 @@ import 'package:flutter_rating_native/flutter_rating_native.dart';
 import 'package:get/get.dart';
 
 class TechnicianDetailsScreen extends StatelessWidget {
-  const TechnicianDetailsScreen({Key? key, required this.technicianId}) : super(key: key);
+  const TechnicianDetailsScreen({Key? key, required this.technicianId})
+      : super(key: key);
   final String technicianId;
 
   @override
@@ -35,7 +37,6 @@ class TechnicianDetailsScreen extends StatelessWidget {
                           // height: 50,
                           child: CircleAvatar(
                             radius: 50,
-                            backgroundColor: Color.fromARGB(255, 238, 66, 54),
                             child: Icon(
                               Icons.person,
                               size: 35,
@@ -95,8 +96,8 @@ class TechnicianDetailsScreen extends StatelessWidget {
                       SizedBox(
                         height: 30,
                         child: ListTile(
-                            title: Text(
-                          userData.location,
+                            title: Text("Location:: ${userData.location}"
+                          ,
                           style: const TextStyle(fontSize: 16),
                         )),
                       ),
@@ -121,6 +122,28 @@ class TechnicianDetailsScreen extends StatelessWidget {
                           subtitle: Text(
                               'Hello! As a roadside vehicle mechanic, your services are essential for drivers '),
                         ),
+                      ),
+                      const SizedBox(height: 100,),
+                      
+                      // create a button to book the technician
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  RequestForm('technicianUID'),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          minimumSize: const Size(200, 50),
+                        ),
+                        child: const Text('Book Technician'),
                       ),
                     ],
                   );

@@ -13,6 +13,8 @@ class DriverRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
+  get firebaseUser => null;
+
 // store the driver data in the firestore
   createUser(UserModel user) async {
     await _db
@@ -64,6 +66,7 @@ class DriverRepository extends GetxController {
 
   // fetch the driver data from the firestore
   Future<UserModel> getDriverData() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
     final email = FirebaseAuth.instance.currentUser!.email;
     final snapshot =
         await _db.collection("drivers").where("Email", isEqualTo: email).get();

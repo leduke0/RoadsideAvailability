@@ -1,6 +1,8 @@
+// import 'dart:collection';
+
 import 'package:chop_ya/src/features/core/screens/driver/chats/chat_screen.dart';
 import 'package:chop_ya/src/features/core/screens/driver/history/history_screen.dart';
-import 'package:chop_ya/src/features/core/screens/driver/notifications/notification_screen.dart';
+import 'package:chop_ya/src/features/core/screens/driver/map/map_view.dart';
 import 'package:chop_ya/src/features/core/screens/driver/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chop_ya/src/features/core/screens/driver/dashboard/dashboard.dart';
@@ -20,10 +22,10 @@ int _currentIdex = 0;
 
 // list of screens to navigate to
 final List<Widget> _screens = [
-  const Dashboard(),
+   Dashboard(),
   const ChatScreen(),
+  const MapView(),
   const HistoryScreen(),
-  const NotificationScreen(),
   const ProfileScreen(),
 
 ];

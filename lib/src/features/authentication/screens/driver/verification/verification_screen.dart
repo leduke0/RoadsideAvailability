@@ -55,7 +55,7 @@ class VerificationScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        Get.to(() => const Dashboard());
+                        Get.to(() =>  Dashboard());
                       },
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 18.0)),

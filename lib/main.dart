@@ -1,4 +1,5 @@
 import 'package:chop_ya/firebase_options.dart';
+import 'package:chop_ya/src/common_widgets/infoHandler/app_info.dart';
 // import 'package:chop_ya/src/features/authentication/screens/driver/login/login_screen.dart';
 // import 'package:chop_ya/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:chop_ya/src/repository/authentication_repository/authentication_repository.dart';
@@ -7,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,22 +23,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-        
-        theme: TAppTheme.lightTheme,
-        darkTheme: TAppTheme.darkTheme,
-        themeMode: ThemeMode.light,
-        debugShowCheckedModeBanner: false,
-        defaultTransition: Transition.leftToRightWithFade,
-        transitionDuration: const Duration(milliseconds: 700),
-        home: const Scaffold(
+    return ChangeNotifierProvider(
+      create: (context) => AppInfo(),
+      child: GetMaterialApp(
           
-            body: Center(
-          child: CircularProgressIndicator(
-            color: Colors.black,
-            backgroundColor: Colors.white,
-          ),
-        )));
+          theme: TAppTheme.lightTheme,
+          darkTheme: TAppTheme.darkTheme,
+          themeMode: ThemeMode.light,
+          debugShowCheckedModeBanner: false,
+          defaultTransition: Transition.leftToRightWithFade,
+          transitionDuration: const Duration(milliseconds: 700),
+          home: const Scaffold(
+            
+              body: Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+              backgroundColor: Colors.white,
+            ),
+          ))),
+    );
   }
 }
 
