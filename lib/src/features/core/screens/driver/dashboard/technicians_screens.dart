@@ -37,9 +37,7 @@ class _TechnicianScreenState extends State<TechnicianScreen> {
           const SizedBox(
             height: 20,
           ),
-          const SearchBar(
-            
-          ),
+          const SearchBar(),
           const SizedBox(
             height: 20,
           ),
@@ -57,13 +55,17 @@ class _TechnicianScreenState extends State<TechnicianScreen> {
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (c, index) {
-                          print(  snapshot.data![index].uid);
+                            print(snapshot.data![index].uid);
                             return ListView(
                               shrinkWrap: true,
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Get.to(() => TechnicianDetailsScreen(technicianId: snapshot.data![index].uid.toString(),));
+                                    Get.to(() => TechnicianDetailsScreen(
+                                          technicianId: snapshot
+                                              .data![index].uid
+                                              .toString(),
+                                        ));
                                   },
                                   child: Row(
                                     children: [
@@ -71,7 +73,8 @@ class _TechnicianScreenState extends State<TechnicianScreen> {
                                         width: 70,
                                         height: 70,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           color: const Color(0xFF36454f),
                                         ),
                                         child: const Center(
@@ -118,7 +121,8 @@ class _TechnicianScreenState extends State<TechnicianScreen> {
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                   ),
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                                 Center(
                                                   child: FlutterRating(

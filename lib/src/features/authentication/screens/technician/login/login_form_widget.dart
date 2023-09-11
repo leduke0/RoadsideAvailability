@@ -1,3 +1,4 @@
+import 'package:chop_ya/src/common_widgets/form/techNavbar.dart';
 import 'package:chop_ya/src/common_widgets/navigationBar.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/constants/text_strings.dart';
@@ -40,6 +41,10 @@ class _LoginFormState extends State<LoginForm> {
         });
         final userCredentials = await _firebase.signInWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
+
+        if (userCredentials.user != null) {
+          Get.offAll(() =>  TechNavBar());
+        }
       } on FirebaseAuthException catch (error) {
         if (error.code == 'email-already-in-use') {
           //show message erroe

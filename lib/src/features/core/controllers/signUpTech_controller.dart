@@ -2,6 +2,7 @@ import 'package:chop_ya/src/features/authentication/models/technician_model.dart
 import 'package:chop_ya/src/features/authentication/screens/driver/forgot_password/forget_passsword_otp/otp_screen.dart';
 import 'package:chop_ya/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:chop_ya/src/repository/technician_repository/technician_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,8 +37,14 @@ class SignUpTechController extends GetxController {
 
   Future<void> createUser(TechModel user) async {
     // calling the firebase logic or performing additional validation here
-    await techRepo.createUser(user);
+    
     await AuthenticationRepository.instance.createUserWithEmailAndPassword(user.email, user.password);
+     TechModel userWithUid = user.copyWith(uid: FirebaseAuth.instance.currentUser!.uid);
+        print(userWithUid.toString());
+        // await userRepo
+        // .createUser(user.copyWith(uid: FirebaseAuth.instance.currentUser!.uid));
+      await techRepo.createUser(userWithUid);
+      // print the updated user data
     phoneAuthentication(user.phoneNo);
     Get.to(() => const OTPScreen());
   }

@@ -8,7 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-final _firebase = FirebaseAuth.instance;
+// final _firebase = FirebaseAuth.instance;
+final _auth = FirebaseAuth.instance;
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -38,11 +39,11 @@ class _LoginFormState extends State<LoginForm> {
         setState(() {
           _isAuthenticating = true;
         });
-        final userCredentials = await _firebase.signInWithEmailAndPassword(
-            email: _enteredEmail, password: _enteredPassword);
-          // if (userCredentials.user != null) {
-          //   Get.to(() => NavBar());
-          // }
+        final userCredentials = await _auth.signInWithEmailAndPassword(email: _enteredEmail, password: _enteredPassword);
+        
+          if (userCredentials.user != null) {
+            Get.to(() => NavBar());
+          }
       } on FirebaseAuthException catch (error) {
         if (error.code == 'email-already-in-use') {
           //show message erroe

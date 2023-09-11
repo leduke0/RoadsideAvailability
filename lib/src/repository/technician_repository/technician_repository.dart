@@ -1,6 +1,8 @@
 // driver repository to perform database operations
 // CRUD operations
 
+import 'dart:developer';
+
 import 'package:chop_ya/src/features/authentication/models/driver_model.dart';
 import 'package:chop_ya/src/features/authentication/models/technician_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,38 +17,47 @@ class TechnicianRepository extends GetxController {
 
 // store the driver data in the firestore
   createUser(TechModel user) async {
-    await _db
-        .collection('technicians')
-        .doc(user.uid)
-        .set(user.toJson())
-        // .whenComplete(
+    await _db.collection('technicians').doc(user.uid).set(user.toJson());
+    // .whenComplete(
 
-        //   () => Get.snackbar(
-        //     "Success",
-        //     "Your account has been created successfully",
-        //     snackPosition: SnackPosition.BOTTOM,
-        //     backgroundColor: Colors.green.withOpacity(0.1),
-        //     colorText: Colors.green,
-        //   ),
-        // )
-        .catchError((error, stackTrace) {
-      Get.snackbar(
-        "Error",
-        "Something went wrong, please try again later",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.1),
-        colorText: Colors.red,
-      );
-    });
+    //   () => Get.snackbar(
+    //     "Success",
+    //     "Your account has been created successfully",
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     backgroundColor: Colors.green.withOpacity(0.1),
+    //     colorText: Colors.green,
+    //   ),
+    // )
+    //     .catchError((error, stackTrace) {
+    //   Get.snackbar(
+    //     "Error",
+    //     "Something went wrong, please try again later",
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     backgroundColor: Colors.red.withOpacity(0.1),
+    //     colorText: Colors.red,
+    //   );
+    // });
   }
 
   // fetch the driver data from the firestore
-  Future<TechModel> getTechnicianData() async {
+  // Future<TechModel> getTechnicianData() async {
+  //   final email = FirebaseAuth.instance.currentUser!.email;
+  //   final snapshot =
+  //       await _db.collection("technicians").where("Email", isEqualTo: email).get();
+  //   final TechModel userData = snapshot.docs.map((e) => TechModel.fromSnapshot(e)).single;
+  //   return userData;
+  // }
+  Future<TechModel> getTechnicianData({required String technicianId}) async {
     final email = FirebaseAuth.instance.currentUser!.email;
-    final snapshot =
-        await _db.collection("technicians").where("Email", isEqualTo: email).get();
-    final TechModel userData = snapshot.docs.map((e) => TechModel.fromSnapshot(e)).single;
-    return userData;
+    try {
+      final snapshot =
+          await _db.collection("technicians").doc(technicianId).get();
+      final TechModel userData = TechModel.fromSnapshot(snapshot);
+      return userData;
+    } on FirebaseException catch (e, stacktrace) {
+      log('error getting technician data${e.message} \n stacktrace$stacktrace');
+      rethrow;
+    }
   }
 
   // get(fetch) the driver data from the firestore
@@ -63,4 +74,4 @@ class TechnicianRepository extends GetxController {
         snapshot.docs.map((e) => TechModel.fromSnapshot(e)).toList();
     return userData;
   }
- }
+}

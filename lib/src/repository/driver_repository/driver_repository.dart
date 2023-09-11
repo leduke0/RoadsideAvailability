@@ -17,10 +17,13 @@ class DriverRepository extends GetxController {
 
 // store the driver data in the firestore
   createUser(UserModel user) async {
+    // final userCredentials =  await FirebaseAuth.instance
+    //     .createUserWithEmailAndPassword(
+    //         email: user.email, password: user.password);
     await _db
         .collection('drivers')
         .doc(user.uid)  // store the user id as the document id
-        .set(user.toJson())
+        .set(user.toJson());
         // .add(user.toJson())
         // .whenComplete(
         //   () => Get.snackbar(
@@ -31,46 +34,46 @@ class DriverRepository extends GetxController {
         //     colorText: Colors.green,
         //   ),
         // )
-        .catchError((error, stackTrace) {
-      if (error is FirebaseAuthException) {
-        if (error.code == 'weak-password') {
-          Get.snackbar(
-            "Error",
-            "The password provided is too weak.",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red.withOpacity(0.1),
-            colorText: Colors.red,
-          );
-        } else if (error.code == 'email-already-in-use') {
-          Get.snackbar(
-            "Error",
-            "The account already exists for that email.",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red.withOpacity(0.1),
-            colorText: Colors.red,
-          );
-        }
-      }
+  //       .catchError((error, stackTrace) {
+  //     if (error is FirebaseAuthException) {
+  //       if (error.code == 'weak-password') {
+  //         Get.snackbar(
+  //           "Error",
+  //           "The password provided is too weak.",
+  //           snackPosition: SnackPosition.BOTTOM,
+  //           backgroundColor: Colors.red.withOpacity(0.1),
+  //           colorText: Colors.red,
+  //         );
+  //       } else if (error.code == 'email-already-in-use') {
+  //         Get.snackbar(
+  //           "Error",
+  //           "The account already exists for that email.",
+  //           snackPosition: SnackPosition.BOTTOM,
+  //           backgroundColor: Colors.red.withOpacity(0.1),
+  //           colorText: Colors.red,
+  //         );
+  //       }
+  //     }
 
-            // SignUpWithEmailAndPasswordFailure();
+  //           // SignUpWithEmailAndPasswordFailure();
           
-      // Get.snackbar(
-      //   "Error",
-      //   "Something went wrong, please try again later",
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   backgroundColor: Colors.red.withOpacity(0.1),
-      //   colorText: Colors.red,
-      // );
-    });
-  }
+  //     // Get.snackbar(
+  //     //   "Error",
+  //     //   "Something went wrong, please try again later",
+  //     //   snackPosition: SnackPosition.BOTTOM,
+  //     //   backgroundColor: Colors.red.withOpacity(0.1),
+  //     //   colorText: Colors.red,
+  //     // );
+  //   });
+   }
 
   // fetch the driver data from the firestore
-  Future<UserModel> getDriverData() async {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
+  Future<UserModel> getDriverData({required String driverId}) async {
+    // final uid = FirebaseAuth.instance.currentUser!.uid;
     final email = FirebaseAuth.instance.currentUser!.email;
     final snapshot =
-        await _db.collection("drivers").where("Email", isEqualTo: email).get();
-    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+        await _db.collection("drivers").doc(driverId).get();
+    final userData = UserModel.fromSnapshot(snapshot);
     return userData;
   }
 

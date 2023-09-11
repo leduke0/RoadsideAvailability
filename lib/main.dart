@@ -1,9 +1,12 @@
 import 'package:chop_ya/firebase_options.dart';
 import 'package:chop_ya/src/common_widgets/infoHandler/app_info.dart';
+import 'package:chop_ya/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
+import 'package:chop_ya/src/features/core/screens/driver/dashboard/dashboard.dart';
 // import 'package:chop_ya/src/features/authentication/screens/driver/login/login_screen.dart';
 // import 'package:chop_ya/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:chop_ya/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:chop_ya/src/utils/theme/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter/material.dart';
@@ -33,14 +36,17 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 700),
-          home: const Scaffold(
+          home: WelcomeScreen(), 
+          )
+          // const WelcomeScreen()),
+          // const Scaffold(
             
-              body: Center(
-            child: CircularProgressIndicator(
-              color: Colors.black,
-              backgroundColor: Colors.white,
-            ),
-          ))),
+          //     body: Center(
+          //   child: CircularProgressIndicator(
+          //     color: Colors.black,
+          //     backgroundColor: Colors.white,
+          //   ),
+          // ))),
     );
   }
 }

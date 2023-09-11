@@ -8,7 +8,6 @@ class TechModel {
   final String password;
   final String location;
 
-
 // the constructor of the model
   const TechModel({
     this.uid,
@@ -18,7 +17,6 @@ class TechModel {
     required this.password,
     required this.location,
   });
-
 
   // creating a map to map the values of the drivers to the database
 
@@ -33,9 +31,9 @@ class TechModel {
     };
   }
 
-
-   // Map user fetched from firestore to DriverModel
-  factory TechModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+  // Map user fetched from firestore to DriverModel
+  factory TechModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return TechModel(
       uid: document.id,
@@ -45,5 +43,29 @@ class TechModel {
       password: data['Password'],
       location: data['Location'],
     );
+  }
+
+  // create a copywith method to copy the values of the drivers to the database
+  TechModel copyWith({
+    String? uid,
+    String? fullName,
+    String? email,
+    String? phoneNo,
+    String? password,
+    String? location,
+  }) {
+    return TechModel(
+      uid: uid ?? this.uid,
+      fullName: fullName ?? this.fullName,
+      email: email ?? this.email,
+      phoneNo: phoneNo ?? this.phoneNo,
+      password: password ?? this.password,
+      location: location ?? this.location,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'UserModel(uid: $uid, fullName: $fullName, email: $email, phoneNo: $phoneNo, password: $password, location: $location)';
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chop_ya/src/features/core/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,16 +11,15 @@ class ChatService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
   // Send Message
   Future<void> sendMessage(String receiverId, String message) async {
     //get current user
     final User user = _firebaseAuth.currentUser!;
     final uid = user.uid;
     // final String currentUserId = _firebaseAuth.currentUser!.uid;
-    final String currentUserEmail = _firebaseAuth.currentUser!.email!.toString();
-    final Timestamp timeStamp = Timestamp.now();  // get current time
-
+    final String currentUserEmail =
+        _firebaseAuth.currentUser!.email!.toString();
+    final Timestamp timeStamp = Timestamp.now(); // get current time
 
     // Create a new message
     Message newMessage = Message(
@@ -26,25 +27,22 @@ class ChatService extends ChangeNotifier {
       senderEmail: currentUserEmail,
       receiverId: receiverId,
       message: message,
-      timestamp: timeStamp, 
+      timestamp: timeStamp,
     );
-
 
     // construct a chat room id from current user id and receiver id (sorted to ensure uniqueness)
     List<String> userIds = [uid, receiverId];
-    userIds.sort(); // sort the list(this ensures the chat room id is unique and remains the same for both users)
-    String chatRoomId = userIds.join(
-        "_"); // join the sorted list to create a unique chat room id
-
+    userIds
+        .sort(); // sort the list(this ensures the chat room id is unique and remains the same for both users)
+    String chatRoomId = userIds
+        .join("_"); // join the sorted list to create a unique chat room id
 
     // add new message to database
-    await _firestore
-        .collection("chatrooms")
-        .doc(chatRoomId).set({
-          "sender_id": uid,
-          "receiver_id": receiverId,
-          "timestamp": timeStamp,
-        });
+    await _firestore.collection("chatrooms").doc(chatRoomId).set({
+      "sender_id": uid,
+      "receiver_id": receiverId,
+      "timestamp": timeStamp,
+    });
     await _firestore
         .collection("chatrooms")
         .doc(chatRoomId)
@@ -66,15 +64,29 @@ class ChatService extends ChangeNotifier {
         .collection("messages")
         .orderBy("timestamp", descending: false)
         .snapshots();
-
   }
+
   Stream<QuerySnapshot> getReceiverChatrooms() {
     // get messages from firestore
-    return _firestore
-        .collection("chatrooms").where('receiver_id', isEqualTo: _firebaseAuth.currentUser!.uid)
-        .orderBy("timestamp", descending: false)
-        .snapshots();
+    // return _firestore
+    //     .collection("chatrooms").where('receiver_id', isEqualTo: _firebaseAuth.currentUser!.uid)
+    //     .orderBy("timestamp", descending: false)
+    //     .snapshots();
 
+    try {
+      Stream<QuerySnapshot<Map<String, dynamic>>> query = _firestore
+          .collection("chatrooms")
+          .where(Filter.or(
+              Filter("receiver_id", isEqualTo: _firebaseAuth.currentUser!.uid),
+              Filter("sender_id", isEqualTo: _firebaseAuth.currentUser!.uid)))
+          .orderBy("timestamp", descending: false)
+          .snapshots();
+
+      log('Snapshot returen: ${query.toString()}');
+      return query;
+    } on FirebaseException catch (e, stackTrace) {
+      log('failed getting chatrooms, with error ${e.message} and stacktrace ${stackTrace}');
+      throw e;
+    }
   }
-
 }

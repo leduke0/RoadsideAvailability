@@ -1,8 +1,9 @@
-import 'package:chop_ya/src/common_widgets/navigationBar.dart';
+// import 'package:chop_ya/src/common_widgets/navigationBar.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/constants/text_strings.dart';
 import 'package:chop_ya/src/features/core/controllers/otp_controller.dart';
-import 'package:chop_ya/src/features/core/screens/technician/dashboard/dashboard.dart';
+import 'package:chop_ya/src/features/core/controllers/tech_otp_controller.dart';
+// import 'package:chop_ya/src/features/core/screens/technician/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class OTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var otpController = Get.put(OTPController());
+    var otpController = Get.put(TechOTPController());
     var otp;
     return SafeArea(
       child: Scaffold(
@@ -64,7 +65,7 @@ class OTPScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        OTPController.instance.verifyOTP(otp);
+                        TechOTPController.instance.verifyOTP(otp);
                         // Get.to(() => const Dashboard());
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar()));
                         

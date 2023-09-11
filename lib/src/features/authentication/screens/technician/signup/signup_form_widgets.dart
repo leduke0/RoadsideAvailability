@@ -195,7 +195,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       // get user and pass it to controller
 
                       final user = TechModel(
-                        uid: _db.collection('technicians').doc().id,
+                       
                         email: controller.email.text.trim(),
                         password: controller.password.text.trim(),
                         fullName: controller.fullName.text.trim(),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chop_ya/src/features/core/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,6 +48,24 @@ class ChatService extends ChangeNotifier {
         .doc(chatRoomId)
         .collection("messages")
         .add(newMessage.toMap());
+  }
+
+   Stream<QuerySnapshot> getReceiverChatrooms() {
+    try {
+      Stream<QuerySnapshot<Map<String, dynamic>>> query = _firestore
+          .collection("chatrooms")
+          .where(Filter.or(
+              Filter("receiver_id", isEqualTo: _firebaseAuth.currentUser!.uid),
+              Filter("sender_id", isEqualTo: _firebaseAuth.currentUser!.uid)))
+          .orderBy("timestamp", descending: false)
+          .snapshots();
+
+      log('Snapshot returen: ${query.toString()}');
+      return query;
+    } on FirebaseException catch (e, stackTrace) {
+      log('failed getting chatrooms, with error ${e.message} and stacktrace ${stackTrace}');
+      throw e;
+    }
   }
 
   // Get Messages

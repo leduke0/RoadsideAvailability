@@ -19,7 +19,9 @@ class AuthenticationRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
   // contains all the information about the user / logout / login / create account
   late final Rx<User?> firebaseUser;
+  // final _user = Rx<User>( FirebaseAuth.instance.currentUser!);
   var verificationId = ''.obs;
+  // late Stream<User?> _authStateChanges;
   
   // obs observable
 
@@ -28,30 +30,45 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    // ever(firebaseUser, _setInitialScreen);
   }
 
   // redeirect to the home page or particular page
-  _setInitialScreen(User? user) {
-    // user == null
-    //     ? Get.offAll(() => const WelcomeScreen())
-    //     : Get.to(() => NavBar());
-    // check if the user sign in as a driver or technician and redirect to the particular page
-    if (user == null) {
-      Get.offAll(() => const WelcomeScreen());
-    } else {
-      Get.to(() => NavBar());
-    }
+  // _setInitialScreen(User? user)  {
 
-    // check if current user is a driver or technician and redirect to the particular page
-    // if (FirebaseAuth.instance.currentUser == _db.collection('drivers') ) {
-    //   Get.to(() => NavBar());
-    // } else {
-    //   Get.to(() => TechNavBar());
-    // }
+  //   if (user == null) {
+  //     Get.offAll(() => const WelcomeScreen());
+  //   } else if (user.emailVerified && user.uid  _db.collection('drivers').doc(user.uid)) {
+  //     Get.to(() =>  TechNavBar());
+  //   } else {
+  //     Get.to(() =>  NavBar());
+  //   } 
+
+  //   // if (user != null && user.emailVerified && user.uid == _db.collection('drivers').doc(user.uid)) {
+  //   //   Get.to(() =>  NavBar());
+  //   // } else if (user != null && user.emailVerified && user.uid == _db.collection('technicians').doc(user.uid)) {
+  //   //   Get.to(() =>  TechNavBar());
+  //   // } else {
+  //   //   Get.offAll(() => const WelcomeScreen());
+  //   // }
+   
+  //   // if (user == null) {
+  //   //   Get.offAll(() => const WelcomeScreen());
+  //   // } else {
+  //   //   Get.to(() => NavBar());
+  //   // }
+
+
+  //   // check if current user is a driver or technician and redirect to the particular page
+  //   // if (FirebaseAuth.instance.currentUser == _db.collection('drivers') ) {
+  //   //   Get.to(() => NavBar());
+  //   // } else {
+  //   //   Get.to(() => TechNavBar());
+  //   // }
     
 
-  }
+  // }
+
 
   // Future<void> phoneAuthentication(String phoneNo) async {
   //   await _auth.verifyPhoneNumber(
@@ -107,13 +124,27 @@ class AuthenticationRepository extends GetxController {
   }
 
   // create account
+
+
+  // create account
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
+      
+
+      
+
+
       // after creating the user, create a new document for the user in the users collection
+      // await _db.collection('drivers').doc(_auth.currentUser!.uid).set({
+      //   'email': email,
+      //   'password': password,
+
+        
+      // });
       
       firebaseUser.value != null
           ? Get.to(() => const OTPScreen())

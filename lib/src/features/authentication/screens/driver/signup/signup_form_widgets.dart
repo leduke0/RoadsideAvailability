@@ -2,6 +2,7 @@ import 'package:chop_ya/src/common_widgets/navigationBar.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/constants/text_strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:chop_ya/src/features/core/controllers/signup_controller.dart';
 import 'package:chop_ya/src/features/authentication/models/driver_model.dart';
@@ -20,7 +21,6 @@ class SignUpFormWidget extends StatefulWidget {
 }
 
 class _SignUpFormWidgetState extends State<SignUpFormWidget> {
-
   final _db = FirebaseFirestore.instance;
 
   var _isObscured;
@@ -163,6 +163,11 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
               child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      // FirebaseAuth.instance
+                      //     .createUserWithEmailAndPassword(
+                      //         email: controller.email.text.trim(),
+                      //         password: controller.password.text.trim());
+                          
                       // SignUpController.instance.phoneAuthentication(
                       //     controller.phoneNo.text.trim());
                       // SignUpController.instance.registerUser(
@@ -171,9 +176,10 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar()));
 
                       // get user and pass it to controller
-                      
+
                       final user = UserModel(
-                        uid: _db.collection('users').doc().id,
+                        // uid: FirebaseAuth.instance.currentUser!.uid,
+                        // uid: null,
                         email: controller.email.text.trim(),
                         password: controller.password.text.trim(),
                         fullName: controller.fullName.text.trim(),
@@ -181,6 +187,8 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       );
 
                       SignUpController.instance.createUser(user);
+                  
+
                     }
                   },
                   style: ElevatedButton.styleFrom(

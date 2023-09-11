@@ -2,6 +2,7 @@ import 'package:chop_ya/src/common_widgets/request_form.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/features/authentication/models/technician_model.dart';
 import 'package:chop_ya/src/features/authentication/screens/technician/signup/controllers/techProfile_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_rating_native/flutter_rating_native.dart';
@@ -10,6 +11,8 @@ import 'package:get/get.dart';
 class TechnicianDetailsScreen extends StatelessWidget {
   const TechnicianDetailsScreen({Key? key, required this.technicianId})
       : super(key: key);
+  // final String technicianId;
+  // get that id from the previous screen
   final String technicianId;
 
   @override
@@ -96,8 +99,8 @@ class TechnicianDetailsScreen extends StatelessWidget {
                       SizedBox(
                         height: 30,
                         child: ListTile(
-                            title: Text("Location:: ${userData.location}"
-                          ,
+                            title: Text(
+                          "Location:: ${userData.location}",
                           style: const TextStyle(fontSize: 16),
                         )),
                       ),
@@ -123,16 +126,17 @@ class TechnicianDetailsScreen extends StatelessWidget {
                               'Hello! As a roadside vehicle mechanic, your services are essential for drivers '),
                         ),
                       ),
-                      const SizedBox(height: 100,),
-                      
+                      const SizedBox(
+                        height: 100,
+                      ),
+
                       // create a button to book the technician
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  RequestForm('technicianUID'),
+                              builder: (context) => RequestForm(technicianId),
                             ),
                           );
                         },

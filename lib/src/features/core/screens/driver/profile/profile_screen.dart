@@ -1,9 +1,12 @@
 import 'package:chop_ya/src/constants/image_strings.dart';
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/constants/text_strings.dart';
+import 'package:chop_ya/src/features/authentication/screens/driver/login/login_screen.dart';
+import 'package:chop_ya/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
 import 'package:chop_ya/src/features/core/screens/driver/profile/update_profile_screen.dart';
 import 'package:chop_ya/src/features/core/screens/driver/profile/widgets/profile_menu.dart';
 import 'package:chop_ya/src/repository/authentication_repository/authentication_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -110,7 +113,10 @@ class ProfileScreen extends StatelessWidget {
                   textColor: Colors.red,
                   endIcon: false,
                   onPress: () {
-                    AuthenticationRepository.instance.logout();
+                    // logout user
+                    FirebaseAuth.instance.signOut();
+                    // Get.offAll(() => const LoginScreen());
+                    // AuthenticationRepository.instance.logout();
                   },
                 ),
               ],

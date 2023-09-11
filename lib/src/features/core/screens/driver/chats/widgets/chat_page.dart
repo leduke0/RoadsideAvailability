@@ -1,6 +1,6 @@
 import 'package:chop_ya/src/constants/sizes.dart';
 import 'package:chop_ya/src/features/core/screens/driver/chats/widgets/chat_bubble.dart';
-import 'package:chop_ya/src/features/core/screens/driver/chats/widgets/chat_service.dart';
+import 'package:chop_ya/src/features/core/screens/technician/chats/widgets/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
